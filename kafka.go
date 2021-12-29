@@ -27,8 +27,11 @@ type KafkaConfig struct {
 // 设置debug模式
 func (k *Kafka) SetDebug(debug bool) {
 	k.debug = debug
-	k.log = zdpgo_log.New(k.logFilePath)
-	k.log.SetDebug(k.debug)
+	logConfig := zdpgo_log.LogConfig{
+		Debug:       k.debug,
+		LogFilePath: k.logFilePath,
+	}
+	k.log = zdpgo_log.New(logConfig)
 }
 
 // 是否为debug模式
@@ -47,8 +50,11 @@ func New(config KafkaConfig) *Kafka {
 	if config.LogFilePath == "" {
 		k.logFilePath = "zdpgo_kafka.log"
 	}
-	k.log = zdpgo_log.New(k.logFilePath)
-	k.log.SetDebug(k.debug)
+	logConfig := zdpgo_log.LogConfig{
+		Debug:       k.debug,
+		LogFilePath: k.logFilePath,
+	}
+	k.log = zdpgo_log.New(logConfig)
 
 	// 初始化配置
 	k.host = config.Host
