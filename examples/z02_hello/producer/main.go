@@ -12,7 +12,8 @@ func main() {
 		Port: 9092,
 	}
 	k := zdpgo_kafka.New(config)
-	pid, offset := k.SendMessage("test", "你好啊！")
+	defer k.Close()
+
+	pid, offset := k.SendMessage("message", "【DAL科技】您正在注册DAL科技信息短信平台账号，验证码是：888888，3分钟内有效，请及时输入。")
 	fmt.Println("发送消息成功：", pid, offset)
-	k.Close()
 }

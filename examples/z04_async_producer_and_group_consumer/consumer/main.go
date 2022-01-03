@@ -6,10 +6,12 @@ import (
 	"github.com/zhangdapeng520/zdpgo_log"
 )
 
+// 创建一个自己的组处理器
 type Handler struct {
-	zdpgo_kafka.ConsumerGroupHandler
+	zdpgo_kafka.ConsumerGroupHandler // 继承原本的组处理器
 }
 
+// 重写消费方法
 func (h Handler) ConsumeClaim(session sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
 	// 遍历得到的消息
 	for msg := range claim.Messages() {
